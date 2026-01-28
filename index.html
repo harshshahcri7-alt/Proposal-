@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For You ❤️</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(#ffe6f0, #ffffff);
+      text-align: center;
+      padding: 30px;
+      color: #444;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #e75480;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 25px auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    button {
+      background: #e75480;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background: #d1436f;
+    }
+
+    #noBtn {
+      position: absolute;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Opening -->
+  <h1>Hey ❤️</h1>
+
+  <div class="card">
+    <p>
+      You’ve never called me by my name, and somehow “soti” always hits different.  
+      It’s your way of saying you’re sleepy, and I don’t know why… but I love that moment.
+    </p>
+    <p>
+      You keep things normal, but I know how much you care about me.  
+      So here’s something for you, babe.
+    </p>
+  </div>
+
+  <!-- First Image -->
+  <div class="card">
+    <img src="us1.jpg" style="width:100%; border-radius:15px;">
+    <p style="margin-top:15px;">
+      Somehow, even miles apart, we still look like we belong together.
+    </p>
+  </div>
+
+  <!-- One more thing -->
+  <div class="card">
+    <p>One more thing… 💗</p>
+    <button onclick="playIntro()">Tap here</button>
+  </div>
+
+  <!-- Second Image -->
+  <div class="card">
+    <img src="us2.jpg" style="width:100%; border-radius:15px;">
+    <p style="margin-top:15px;">
+      Kya dekh rahe ho?
+    </p>
+  </div>
+
+  <!-- Tum section -->
+  <div class="card">
+    <h2>Ab inn sab ke baad, mujhe sirf ek hi cheez khinch ke laati hai…</h2>
+    <h1 onclick="playTum()" style="cursor:pointer;">Tum.</h1>
+  </div>
+
+  <!-- Proposal -->
+  <div class="card" id="proposal">
+    <h2>So…</h2>
+    <h1>Will you be my cutie pie? 🥧❤️</h1>
+
+    <div style="margin-top:20px; position:relative; height:120px;">
+      <button onclick="sayYes()">Yes 🥰</button>
+      <button id="noBtn" onmouseover="runAway()">No 🙃</button>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="introMusic">
+    <source src="end-of-beginning.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="yesMusic">
+    <source src="yes-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Scripts -->
+  <script>
+    function playIntro() {
+      const m = document.getElementById("introMusic");
+      m.volume = 0.6;
+      m.play();
+    }
+
+    function playTum() {
+      const m = document.getElementById("introMusic");
+      m.volume = 0.6;
+      m.play();
+    }
+
+    function runAway() {
+      const btn = document.getElementById("noBtn");
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 100 - 50;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function sayYes() {
+      const music = document.getElementById("yesMusic");
+      music.volume = 0;
+      music.play();
+
+      let v = 0;
+      const fade = setInterval(() => {
+        if (v < 0.7) {
+          v += 0.05;
+          music.volume = v;
+        } else {
+          clearInterval(fade);
+        }
+      }, 200);
+
+      document.body.innerHTML = `
+        <div style="padding:40px;">
+          <h1>YAYYYY 💖💖💖</h1>
+          <p style="font-size:1.2rem;">You just made me the happiest person alive.</p>
+          <p>I love you, cutie pie 🥧❤️</p>
+          <p style="margin-top:30px;">
+            Oye, itna sharmana hai toh video call karo 😉❤️
+          </p>
+        </div>
+      `;
+
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = "24px";
+        heart.style.animation = "floatUp 4s linear infinite";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+  </script>
+
+</body>
+</html>
