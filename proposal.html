@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Question ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family:Poppins, sans-serif;
+      background:#ffe6f0;
+      text-align:center;
+      padding:40px;
+    }
+    h1 { font-family:'Dancing Script', cursive; color:#e75480; }
+    button {
+      background:#e75480; color:white;
+      padding:14px 28px; border:none;
+      border-radius:30px; font-size:1.1rem;
+      margin:10px;
+    }
+    #noBtn { position:absolute; }
+    @keyframes floatUp {
+      from {transform:translateY(0);opacity:1;}
+      to {transform:translateY(-100vh);opacity:0;}
+    }
+  </style>
+</head>
+<body>
+
+<h1>Will you be my cutie pie? 🥧❤️</h1>
+
+<button onclick="sayYes()">Yes 🥰</button>
+<button id="noBtn" onmouseover="runAway()">No 🙃</button>
+
+<audio id="yesMusic">
+  <source src="yes-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function runAway(){
+  const b=document.getElementById("noBtn");
+  b.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
+}
+
+function sayYes(){
+  const m=document.getElementById("yesMusic");
+  m.volume=0.7;
+  m.play();
+
+  setTimeout(()=>{
+    document.body.innerHTML=`
+      <h1>YAYYYY 💖💖💖</h1>
+      <p>You just made me the happiest person alive.</p>
+      <p>I love you, cutie pie 🥧❤️</p>
+      <p>Oye, itna sharmana hai toh video call karo 😉❤️</p>
+    `;
+    for(let i=0;i<30;i++){
+      const h=document.createElement("div");
+      h.innerHTML="❤️";
+      h.style.position="fixed";
+      h.style.left=Math.random()*100+"vw";
+      h.style.top="100vh";
+      h.style.animation="floatUp 4s linear infinite";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }
+  },800);
+}
+</script>
+
+</body>
+</html>
