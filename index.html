@@ -1,45 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>For You ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: Poppins, sans-serif;
-      background: linear-gradient(#ffe6f0, #fff);
-      text-align: center;
-      padding: 40px;
-    }
-    h1 { font-family: 'Dancing Script', cursive; color:#e75480; }
-    button {
-      background:#e75480; color:white;
-      padding:14px 28px; border:none;
-      border-radius:30px; font-size:1.1rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(#ffe6f0,#fff);
+  text-align:center;
+  padding:30px;
+}
+h1{font-family:'Dancing Script',cursive;color:#e75480;}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  max-width:600px;
+  margin:25px auto;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+button{
+  background:#e75480;color:white;
+  padding:14px 28px;border:none;
+  border-radius:30px;font-size:1.1rem;
+}
+.hidden{display:none;}
+#noBtn{position:absolute;}
+@keyframes floatUp{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-100vh);opacity:0;}
+}
+</style>
 </head>
+
 <body>
 
-<h1>Hey ❤️</h1>
+<!-- SECTION 1 -->
+<div id="s1" class="card">
+  <h1>Hey ❤️</h1>
+  <p>
+    You’ve never called me by my name, and somehow “soti” always hits different.
+    It’s your way of saying you’re sleepy… and I love that moment.
+  </p>
+  <button onclick="playIntro()">One more thing 💗</button>
+</div>
 
-<p>
-You’ve never called me by my name, and somehow “soti” always hits different.  
-It’s your way of saying you’re sleepy… and I love that moment.
-</p>
+<!-- SECTION 2 -->
+<div id="s2" class="card hidden">
+  <img src="us1.jpg" style="width:100%;border-radius:15px;">
+  <p>Somehow, even miles apart, we still feel close.</p>
 
-<button onclick="playAndGo()">One more thing 💗</button>
+  <img src="us2.jpg" style="width:100%;border-radius:15px;">
+  <p>This smile… my favourite place.</p>
 
-<audio id="music">
+  <h2>Ab inn sab ke baad, mujhe sirf ek hi cheez khinch ke laati hai…</h2>
+  <h1>Tum.</h1>
+
+  <button onclick="showProposal()">So…</button>
+</div>
+
+<!-- SECTION 3 -->
+<div id="s3" class="card hidden">
+  <h1>Will you be my cutie pie? 🥧❤️</h1>
+  <button onclick="sayYes()">Yes 🥰</button>
+  <button id="noBtn" onmouseover="runAway()">No 🙃</button>
+</div>
+
+<audio id="introMusic">
   <source src="end-of-beginning.mp3" type="audio/mpeg">
 </audio>
 
+<audio id="yesMusic">
+  <source src="yes-song.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function playAndGo(){
-  const m = document.getElementById("music");
-  m.volume = 0.7;
+function playIntro(){
+  const m=document.getElementById("introMusic");
+  m.volume=0.8;
   m.play();
-  setTimeout(()=>{ window.location.href="story.html"; }, 1200);
+  document.getElementById("s1").classList.add("hidden");
+
+  // Wait for FULL song
+  m.onended=()=>{
+    document.getElementById("s2").classList.remove("hidden");
+  };
+}
+
+function showProposal(){
+  document.getElementById("s2").classList.add("hidden");
+  document.getElementById("s3").classList.remove("hidden");
+}
+
+function runAway(){
+  const b=document.getElementById("noBtn");
+  b.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
+}
+
+function sayYes(){
+  const m=document.getElementById("yesMusic");
+  m.volume=0.8;
+  m.play();
+
+  m.onended=()=>{
+    document.body.innerHTML=`
+      <h1>YAYYYY 💖💖💖</h1>
+      <p>You just made me the happiest person alive.</p>
+      <p>I love you, cutie pie 🥧❤️</p>
+      <p>Oye, itna sharmana hai toh video call karo 😉❤️</p>
+    `;
+    for(let i=0;i<30;i++){
+      const h=document.createElement("div");
+      h.innerHTML="❤️";
+      h.style.position="fixed";
+      h.style.left=Math.random()*100+"vw";
+      h.style.top="100vh";
+      h.style.animation="floatUp 4s linear infinite";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }
+  };
 }
 </script>
 
